@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import {Map, GoogleApiWrapper, Marker, InfoWindow, Polygon } from 'google-maps-react';
 
 export class MapContainer extends React.Component {
   state = { 
@@ -37,11 +37,23 @@ export class MapContainer extends React.Component {
 
     render() {
       const points = [
-        {location:[45.500089, -73.564600], weight: 1},
+        {location:[45.478743, -73.579878], weight: 1},
         {location:[45.500088, -73.564600], weight: 1},
         {location:[45.500087, -73.564600], weight: 1},
         {location:[45.500086, -73.564600], weight: 1}
       ];
+      const triangleCoords = [
+        {lat: 45.478743, lng: -73.579878},
+        {lat: 45.493037, lng: -73.594428},
+        {lat: 45.520274, lng: -73.570817},
+        {lat: 45.506047, lng: -73.551534}
+      ];
+      const montRoyal = [
+        {lat: 45.498484, lng: -73.615154},
+        {lat: 45.514021, lng: -73.591550},
+        {lat: 45.511095, lng: -73.581329},
+        {lat: 45.496165, lng: -73.595004},
+      ]
       return (
         <Map 
           google={this.props.google} 
@@ -53,6 +65,8 @@ export class MapContainer extends React.Component {
           }}
           center={this.props.location}
           yesIWantToUseGoogleMapApiInternals
+          data={[{lng: 45.500089, lat:-73.564600}]}
+          defaultData={[new window.google.maps.LatLng(45.500089, -73.564600)]}
           mapTypeControl = {false}
           streetViewControl = {false}
           fullscreenControl = {false}
@@ -69,35 +83,43 @@ export class MapContainer extends React.Component {
             stylers: [{visibility: 'off'}]
           },
           {
-            featureType: 'roads',
             elementType: 'labels.icon',
             stylers: [{visibility: 'off'}]
           }
           ]}
-
-          onGoogleApiLoaded={({map, maps}) => {
-            const heatmap = new maps.visualization.HeatmapLayer({
-              data: points.map(point => (
-                {location: new maps.LatLng(point['location'][1], point['location'][0]),
-                weight: point['weight']})),
-              radius: 20,
-            });
-            heatmap.setMap(map);
-
-          }}
-
         >
           <Marker 
             name="Test"
             onClick={this.onMarkerClick}
+            position={this.props.location}
           />
           <InfoWindow
             marker={this.state.activeMarker}
             visible={this.state.showingInfoWindow}>
               <div>
-                <h1>Kevin</h1>
+                <strong>Distance to towers:</strong>
+                <br />
+                Telus
+                <br />
+                Rogers
+                <br />
+                Bell
               </div>
           </InfoWindow>
+          <Polygon
+          paths={triangleCoords}
+          strokeColor="#0000FF"
+          strokeOpacity={0.8}
+          strokeWeight={2}
+          fillColor="#0000FF"
+          fillOpacity={0.35} />
+          <Polygon
+          paths={montRoyal}
+          strokeColor="#f4e242"
+          strokeOpacity={0.8}
+          strokeWeight={2}
+          fillColor="#f4e242"
+          fillOpacity={0.6} />
         </Map>
         
       );

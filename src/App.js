@@ -9,8 +9,13 @@ class App extends Component {
   onAddressSubmit = () => {
     axios.get(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyD0CqwnsGxlFN4GKzegF6cvHfD1Cjzj8OM&input=${this.state.address}&inputtype=textquery`)
     .then(response => {
-      const place_id = response.data.candidates[0].place_id;
-      if (place_id !== undefined) {
+      let place_id = null;
+      try {
+        place_id = response.data.candidates[0].place_id;
+      } catch(e) {
+        console.error(e);
+      }
+      if (place_id !== null) {
         axios.get(`https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyD0CqwnsGxlFN4GKzegF6cvHfD1Cjzj8OM&placeid=${place_id}&fields=geometry`)
         .then(response => {
           console.log(response.data.result.geometry.location);
