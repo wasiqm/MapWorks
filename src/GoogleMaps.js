@@ -32,7 +32,25 @@ export class MapContainer extends React.Component {
           mapTypeControl = {false}
           streetViewControl = {false}
           fullscreenControl = {false}
+          mapTypeControl = {false}
           zoom={14}
+          invert_lightness = {true}
+
+          styles={[{
+            featureType: 'poi',
+            stylers: [{visibility: 'off'}]
+          },
+          {
+            featureType: 'transit',
+            stylers: [{visibility: 'off'}]
+          },
+          {
+            featureType: 'roads',
+            elementType: 'labels.icon',
+            stylers: [{visibility: 'off'}]
+          }
+          ]}
+
           onGoogleApiLoaded={({map, maps}) => {
             const heatmap = new maps.visualization.HeatmapLayer({
               data: points.map(point => (
@@ -40,7 +58,9 @@ export class MapContainer extends React.Component {
                 weight: point['weight']}))
             });
             heatmap.setMap(map);
+
           }}
+
         >
           <Marker 
             name="Test"
@@ -49,6 +69,8 @@ export class MapContainer extends React.Component {
         
       );
     }
+    
+
   }
  
 export default GoogleApiWrapper({
