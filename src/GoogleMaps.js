@@ -28,6 +28,11 @@ export class MapContainer extends React.Component {
           }}
           center={this.state.center}
           yesIWantToUseGoogleMapApiInternals
+          google={this.props.google}
+          mapTypeControl = {false}
+          streetViewControl = {false}
+          fullscreenControl = {false}
+          zoom={14}
           onGoogleApiLoaded={({map, maps}) => {
             const heatmap = new maps.visualization.HeatmapLayer({
               data: points.map(point => (
@@ -41,10 +46,12 @@ export class MapContainer extends React.Component {
             name="Test"
           />
         </Map>
+        
       );
     }
   }
  
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyD0CqwnsGxlFN4GKzegF6cvHfD1Cjzj8OM'
+  apiKey: 'AIzaSyD0CqwnsGxlFN4GKzegF6cvHfD1Cjzj8OM',
+  mapTypeControl: false
 })(MapContainer)

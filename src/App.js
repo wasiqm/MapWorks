@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <input type="text" value={this.state.address} onChange={this.onAddressChange}/>
+        <input type="text" value={this.state.address} onChange={this.onAddressChange} name="search" placeholder="Search..."/>
         <Map />
       </div>
 
