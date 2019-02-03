@@ -34,8 +34,8 @@
 input[type=text] {
   width: 350px;
   position: absolute;
-  left: 5%;
-  top: 100px;
+  left: 2%;
+  top: 2%;
   z-index: 1;
   box-sizing: border-box;
   border: 2px solid #ccc;
