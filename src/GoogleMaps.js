@@ -58,7 +58,7 @@ export class MapContainer extends React.Component {
         <Map 
           google={this.props.google} 
           onClick={this.onMapClicked}
-          zoom={14}
+          zoom={19}
           initialCenter={{
             lat: 45.500089,
             lng: -73.564600
@@ -71,8 +71,7 @@ export class MapContainer extends React.Component {
           streetViewControl = {false}
           fullscreenControl = {false}
           mapTypeControl = {false}
-          zoom={14}
-          invert_lightness = {true}
+          zoom={19}
 
           styles={[{
             featureType: 'poi',
