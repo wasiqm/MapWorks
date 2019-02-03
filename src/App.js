@@ -8,7 +8,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <input type="text" />
+        
+        <form>
+        <input type="text" name="search" placeholder="Search..." />
+        </form>
         <Map />
       </div>
 
