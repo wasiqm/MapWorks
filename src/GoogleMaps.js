@@ -51,7 +51,7 @@ export class MapContainer extends React.Component {
             lat: 45.500089,
             lng: -73.564600
           }}
-          center={this.state.center}
+          center={this.props.location}
           yesIWantToUseGoogleMapApiInternals
           mapTypeControl = {false}
           streetViewControl = {false}
