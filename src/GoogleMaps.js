@@ -1,21 +1,27 @@
 import React from 'react';
 import {Map, GoogleApiWrapper, Marker, InfoWindow, Polygon } from 'google-maps-react';
+import axios from 'axios';
 
 export class MapContainer extends React.Component {
   state = { 
     center: null,
     activeMarker: null,
     showingInfoWindow: false,
+    api: {},
   };
   componentDidMount() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        this.setState({ center: { 
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }});
-      });
-    }
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(position => {
+    //     this.setState({ center: { 
+    //       lat: position.coords.latitude,
+    //       lng: position.coords.longitude
+    //     }});
+    //   });
+    // }
+    axios.get('http://10.1.4.251:5000/result')
+    .then(response => {
+      this.setState({ api: response.data })
+    });
   }  
 
   onMarkerClick = (props, marker, e) => {
@@ -96,13 +102,11 @@ export class MapContainer extends React.Component {
             marker={this.state.activeMarker}
             visible={this.state.showingInfoWindow}>
               <div>
-                <strong>Distance to towers:</strong>
+                <strong>Closest tower: </strong>{this.state.api.tower}
                 <br />
-                Telus
+                Distance: {this.state.api.distance}
                 <br />
-                Rogers
-                <br />
-                Bell
+                Speed: {this.state.api.speed}
               </div>
           </InfoWindow>
           <Polygon
