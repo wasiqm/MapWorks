@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import Map from './GoogleMaps';
 import './App.css';
 
 class App extends Component {
+  state = { address: ''}
+
+  onAddressChange = (event) => {
+    this.setState({ address: event.target.value });
+  }
 
   render() {
     return (
       <div className="App">
-        <input type="text" />
+        <input type="text" value={this.state.address} onChange={this.onAddressChange}/>
         <Map />
       </div>
 
