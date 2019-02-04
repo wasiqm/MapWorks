@@ -7,7 +7,7 @@ class App extends Component {
   state = { address: '', location: null}
 
   onAddressSubmit = () => {
-    axios.get(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyD0CqwnsGxlFN4GKzegF6cvHfD1Cjzj8OM&input=${this.state.address}&inputtype=textquery`)
+    axios.get(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=APIKEY&input=${this.state.address}&inputtype=textquery`)
     .then(response => {
       let place_id = null;
       try {
@@ -16,7 +16,7 @@ class App extends Component {
         console.error(e);
       }
       if (place_id !== null) {
-        axios.get(`https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyD0CqwnsGxlFN4GKzegF6cvHfD1Cjzj8OM&placeid=${place_id}&fields=geometry`)
+        axios.get(`https://maps.googleapis.com/maps/api/place/details/json?key=APIKEY&placeid=${place_id}&fields=geometry`)
         .then(response => {
           console.log(response.data.result.geometry.location);
           this.setState({
